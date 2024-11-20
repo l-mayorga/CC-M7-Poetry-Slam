@@ -13,5 +13,6 @@ def read_poem(filename):
 
 
 texttoimage.convert(
-    read_poem("generated_poems/short_example.txt"), "test_unsplash_image.png"
+    read_poem("generated_poems_txt/short_example.txt"),
+    "test_unsplash_image.png",
 )

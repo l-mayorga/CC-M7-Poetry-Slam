@@ -152,6 +152,19 @@ COLOR_NAME_TO_RGB = dict(
     for name in names
 )
 
+BG_COLORS = [
+    (254, 197, 187),
+    (252, 213, 206),
+    (250, 225, 221),
+    (248, 237, 235),
+    (232, 232, 228),
+    (254, 200, 154),
+    (255, 215, 186),
+    (255, 229, 217),
+    (236, 228, 219),
+    (216, 226, 220),
+]
+
 
 def convert(
     text,
@@ -181,7 +194,7 @@ def convert(
 
     # Check if color is valid
     if bg_color not in COLOR_NAME_TO_RGB.keys():
-        bg_color = random.choice(list(COLOR_NAME_TO_RGB.keys()))
+        bg_color = random.choice(BG_COLORS)
 
     # Get size of the text to adjust its position
     w, h = draw.textsize(text, font=font)
@@ -204,7 +217,4 @@ def convert(
     draw.text((x, y), text, fill=color, font=font)
 
     # Save the image with the text added
-    if image_file is None:
-        # filename = text.replace(' ', '')
-        image_file = f"poem_output.png"
     image.save("poem_output.png", "PNG")
