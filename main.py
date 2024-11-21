@@ -1,10 +1,7 @@
 import texttoimage
-
-# text = """I need a front door for my hall,
-# The replacement I bought was too tall.
-# So I hacked it and chopped it,
-# And carefully lopped it,
-# And now the dumb thing is too small."""
+from generate_ngrams import generate_poem
+from unsplash import generate_bg_image
+import os
 
 
 def read_poem(filename):
@@ -12,25 +9,28 @@ def read_poem(filename):
         return file.read()
 
 
-texttoimage.convert(
-    read_poem("generated_poems_txt/short_example.txt"),
-    "test_unsplash_image.png",
-)
+def write_poem_txt(title, lines):
+    with open("generated_poems_txt/" + title + ".txt", "w") as file:
+        for line in lines:
+            file.write(line + "\n")
 
-# import spacy
 
-# nlp = spacy.load("en_core_web_sm")
+def write_poem_png(title):
+    poem = read_poem("generated_poems_txt/" + title + ".txt")
+    bg_filename = "generated_poems_png/" + title + "_bg.png"
+    texttoimage.convert(poem, bg_filename)
 
-# doc = nlp("Apple is looking at buying U.K. startup for $1 billion")
 
-# for token in doc:
-#     print(token.text, token.pos_, token.dep_)
+def main():
+    lines, significant_nouns = generate_poem()
+    # print(lines, significant_nouns)
+    title = f"{significant_nouns[0]}_{significant_nouns[1]}"
+    print(f"title: {title}")
+    generate_bg_image(significant_nouns, title)
+    write_poem_txt(title, lines)
+    write_poem_png(title)
 
-# import spacy
+    os.system(f"bash perform_poem.sh {title} --move-bg")
 
-# nlp = spacy.load("en_core_web_md")  # make sure to use larger package!
-# doc1 = nlp("I like salty fries and hamburgers.")
-# doc2 = nlp("Fast food tastes very good.")
 
-# # Similarity of two documents
-# print(doc1, "<->", doc2, doc1.similarity(doc2))
+main()

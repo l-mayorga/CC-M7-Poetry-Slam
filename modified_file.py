@@ -184,7 +184,7 @@ def convert(
     if image_file:
         image = Image.open(image_file)
     else:
-        raise ValueError("An image file must be provided.")
+        raise ValueError("An valid bg image file must be provided.")
 
     # image = image.convert('RGBA')
 
@@ -216,5 +216,6 @@ def convert(
     # Draw the text on the existing image
     draw.text((x, y), text, fill=color, font=font)
 
+    # filename = "generated_poems_png/" + image_file.replace("_bg", "")
     # Save the image with the text added
-    image.save("poem_output.png", "PNG")
+    image.save(image_file.replace("_bg.png", ".png"), "PNG")
