@@ -22,6 +22,6 @@ def get_image_from_unsplash(query, filename):
 
 
 if __name__ == "__main__":
-    query = "pie"
+    query = "water bottle"
     filename = "test_unsplash_image.png"
     get_image_from_unsplash(query, filename)
