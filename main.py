@@ -1,4 +1,4 @@
-# import texttoimage
+import texttoimage
 
 # text = """I need a front door for my hall,
 # The replacement I bought was too tall.
@@ -7,15 +7,15 @@
 # And now the dumb thing is too small."""
 
 
-# def read_poem(filename):
-#     with open(filename, "r") as file:
-#         return file.read()
+def read_poem(filename):
+    with open(filename, "r") as file:
+        return file.read()
 
 
-# texttoimage.convert(
-#     read_poem("generated_poems_txt/short_example.txt"),
-#     "test_unsplash_image.png",
-# )
+texttoimage.convert(
+    read_poem("generated_poems_txt/short_example.txt"),
+    "test_unsplash_image.png",
+)
 
 # import spacy
 
