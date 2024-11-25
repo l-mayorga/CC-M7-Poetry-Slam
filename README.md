@@ -26,7 +26,7 @@ Kaggle [Poetry Foundation Poems Datasaet](https://www.kaggle.com/datasets/tgdivy
 
 [Computational Modelling of Poetry Generation](http://nil.fdi.ucm.es/sites/default/files/GervasAISB2013CRC.pdf)
 
-- This review considers strengths and weaknesses of approaching to computational poetry generation. It introduces n-grams as a form of stochastic language modeling and considers the coherence of the poetry it generates. This inspired my evaluation to address coherence via similarity.
+- This review considers strengths and weaknesses of approaches to computational poetry generation. It introduces n-grams as a form of stochastic language modeling and considers the coherence of the poetry it generates. This inspired my evaluation to address coherence via similarity.
 
 [AI-generated poetry is indistinguishable from human-written poetry and is rated more favorably](https://www.nature.com/articles/s41598-024-76900-1)
 
@@ -38,6 +38,6 @@ Kaggle [Poetry Foundation Poems Datasaet](https://www.kaggle.com/datasets/tgdivy
 
 ## Challenges
 
-I tackled the front-end and presentation part first, so the first challenge I encountered was working with the Unsplash API to source background images. I had never gone through the process of applying for an API key and using it in the code. I learned that it's best to store sensitive data like API keys in the environment instead of just having it in the code. The other challenge with the front end was working with PNGs. It was my first time using PIL to work with images and forking another repo to use to modified version of someone else's code.
+I tackled the front-end and presentation first, so the first challenge I encountered was working with the Unsplash API to source background images. I had never gone through the process of applying for an API key and using it in the code. I learned that it's best to store sensitive data like API keys in the environment instead of just having it in the code. The other challenge with the front end was working with PNGs. It was my first time using PIL to work with images and forking another repo to modify someone else's code.
 
 The next challenge was creating n-grams. I knew I wanted to create my own lightweight version instead of using another module's. I remembered the basic concept from the Data Structures lab, but I had a couple difficulties ironing out the fine detail.

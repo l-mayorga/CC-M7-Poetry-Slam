@@ -18,7 +18,6 @@ def generate_bg_image(queries, title):
     Sources a background image for the poem based on two queries. If no image
     is found, use an image of a banana. The image is saved in the
     generated_bgs_png directory.
-
     """
     url = "https://api.unsplash.com/photos/random"
     headers = {"Authorization": f"Client-ID {API_KEY}"}

@@ -168,8 +168,8 @@ def find_significant_nouns(poem_sentences):
 
 def generate_poem(min_similarity=0.95):
     """
-    Generate a poem with a minimum internal similarity and find the two most
-    frequent nouns.
+    Generate a poem surpassing an internal similarity threshold and couple with
+    the two most frequent nouns.
     """
     df = import_and_clean_data()
     n_grams = generate_ngrams(df, 4)

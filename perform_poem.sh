@@ -29,7 +29,7 @@ sleep 1
 # Read the poem
 cat "generated_poems_txt/$1.txt" | tr '\n' ' ' | say
 
-# If flag set, the png bg to the bgs folder
+# If flag set, the move the bg png to the bgs folder
 if [[ " $@ " == *" --move-bg "* ]]; then
     mv generated_poems_png/$1_bg.png generated_bgs_png/$1_bg.png
 fi
