@@ -1,5 +1,6 @@
 """
 Author: zhiwehu, github.com/zhiwehu/texttoimage
+Contributor: Leonard Mayorga
 
 This module is a fork of the texttoimage module found on GitHub. My changes
 add a background box to the text to make it more readable, and use an write on

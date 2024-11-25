@@ -1,3 +1,12 @@
+"""
+Author: Leonard Mayorga
+
+Using a dataset of poems from Kaggle, generate n-grams based on word
+frequencies. Also generate a poem based on the n-grams and evaluate the poem
+based on internal similarity. Finally, format the poem into lines and extract
+important nouns based on frequency.
+"""
+
 import pandas as pd
 import spacy
 import random
@@ -8,6 +17,10 @@ nlp = spacy.load("en_core_web_md")
 
 
 def import_and_clean_data():
+    """
+    Import the poetry dataset and clean it by removing unnecessary columns.
+    Return the cleaned dataset.
+    """
     df = pd.read_csv("PoetryFoundationData.csv")
 
     df = df.drop("Unnamed: 0", axis=1)
@@ -22,13 +35,14 @@ def import_and_clean_data():
 
 
 def generate_ngrams(df, n=2):
+    """
+    Generate n-grams from a dataset of poems and return it.
+    """
 
     print(f"Using {df.shape[0]} poems to generate {n}-grams")
     n_grams = defaultdict(list)
 
     for poem in df["Poem"]:
-
-        # poem = poem.translate(str.maketrans("", "", string.punctuation))
         poem = poem.lower().strip()
 
         words = poem.split(" ")
@@ -42,6 +56,11 @@ def generate_ngrams(df, n=2):
 
 
 def generate_output_poem(n_grams, start, length=5, special_word=None):
+    """
+    Generate a poem based on n-grams and a starting sequence of words. If a
+    special word is specified, it will be included if found at all in the
+    n-grams.
+    """
     n_gram_len = len(list(n_grams.keys())[0])
 
     if len(start) < n_gram_len:
@@ -76,21 +95,26 @@ def generate_output_poem(n_grams, start, length=5, special_word=None):
 
 
 def split_into_sentences_and_trim(poem):
+    """
+    Use spaCy to split poem into sentences and cut malformed sentences.
+    """
     if not poem:
         return None
     poem_doc = nlp(poem)
+    # Remove last sentence (likely incomplete)
     sentences = list(poem_doc.sents)[:-1]
 
+    # Remove sentences with only one word
     sentences = [
         sentence for sentence in sentences if len(sentence.text.split(" ")) > 1
     ]
-
     return sentences
 
 
-# Compare each sentence in poem to every other sentence in poem
 def evaluate_internal_similarity(poem_sentences):
-
+    """Compare each sentence in a poem to every other sentence and return the
+    average similarity.
+    """
     if not poem_sentences:
         return 0
 
@@ -106,11 +130,11 @@ def evaluate_internal_similarity(poem_sentences):
 
 
 def format_poem(poem_sentences, max_len=45):
-
+    """Split a poem into lines based on length and capitalize the first word of
+    each sentence.
+    """
     lines = []
     current_line = ""
-
-    # chars_in_stanza = 0
 
     for sentence in poem_sentences:
         words = sentence.text.capitalize().split(" ")
@@ -120,11 +144,6 @@ def format_poem(poem_sentences, max_len=45):
             else:  # Start a new line
                 lines.append(current_line[:-1])
                 current_line = word + " "
-            # chars_in_stanza += len(word)
-
-        # if chars_in_stanza > 150:
-        #     lines.append("\n")
-        #     chars_in_stanza = 0
 
     if current_line:
         lines.append(current_line[:-1])
@@ -133,6 +152,7 @@ def format_poem(poem_sentences, max_len=45):
 
 
 def find_significant_nouns(poem_sentences):
+    """Find the two most common nouns in a poem. Used for title and bg image."""
     nouns = []
     for sentence in poem_sentences:
         for token in sentence:
@@ -143,13 +163,15 @@ def find_significant_nouns(poem_sentences):
     sorted_nouns = sorted(
         noun_counts.items(), key=lambda x: x[1], reverse=True
     )
-    # return sorted_nouns #Includes counts
     return [noun for noun, _ in sorted_nouns[:2]]
 
 
 def generate_poem(min_similarity=0.95):
+    """
+    Generate a poem with a minimum internal similarity and find the two most
+    frequent nouns.
+    """
     df = import_and_clean_data()
-
     n_grams = generate_ngrams(df, 4)
 
     curr_similarity = 0
@@ -169,7 +191,3 @@ def generate_poem(min_similarity=0.95):
     significant_nouns = find_significant_nouns(split)
 
     return lines, significant_nouns
-
-
-if __name__ == "__main__":
-    print(generate_poem())
