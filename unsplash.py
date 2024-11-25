@@ -34,9 +34,3 @@ def generate_bg_image(queries, title):
     filename = "generated_poems_png/" + title + "_bg.png"
     with open(filename, "wb") as file:
         file.write(image_response.content)
-
-
-if __name__ == "__main__":
-    queries = ["piano", "boat"]
-    filename = "test_unsplash_image.png"
-    generate_bg_image(queries, filename)

@@ -1,4 +1,3 @@
-import string
 import pandas as pd
 import spacy
 import random
@@ -7,26 +6,14 @@ from collections import Counter
 
 nlp = spacy.load("en_core_web_md")
 
-DESIRED_CHARACTERS = 1000
-
 
 def import_and_clean_data():
-
     df = pd.read_csv("PoetryFoundationData.csv")
 
-    # Drop index
     df = df.drop("Unnamed: 0", axis=1)
-
-    # Drop poet
     df = df.drop("Poet", axis=1)
 
-    # Drop rows with missing tags
-    # df = df.dropna(subset=["Tags"])
-
-    # Mitigate data sparsity for higher n-grams
-    # df = df[df["Poem"].str.len() >= MIN_CHARACTERS]
-
-    # Remove \r, \n and extra spacing from titles and poems
+    # Remove spacing from titles and poems
     df["Title"] = df["Title"].str.replace(r"[\r\n]", "", regex=True)
     df["Poem"] = df["Poem"].str.replace(r"[\r\n]", " ", regex=True)
     df["Poem"] = df["Poem"].str.replace(r"\s+", " ", regex=True)
@@ -68,10 +55,8 @@ def generate_output_poem(n_grams, start, length=5, special_word=None):
 
     for _ in range(length - len(generated_text)):
         next_words = n_grams.get(current_sequence, [])
-        # print(f"Next words for {current_sequence}: {next_words}")
 
-        if not next_words:
-            # print(f"Sequence: {current_sequence} not found in n-grams")
+        if not next_words:  # No next words
             return None
 
         if special_word and special_word in next_words:
@@ -164,7 +149,6 @@ def find_significant_nouns(poem_sentences):
 
 def generate_poem(min_similarity=0.95):
     df = import_and_clean_data()
-    # print(df.size)
 
     n_grams = generate_ngrams(df, 4)
 
@@ -173,20 +157,16 @@ def generate_poem(min_similarity=0.95):
         generated_poem = generate_output_poem(
             n_grams, ["i", "am", "like"], 100
         )
-        if not generated_poem:
+        if not generated_poem:  # No next n-gram
             continue
+
         generated_poem = generated_poem[0]
         split = split_into_sentences_and_trim(generated_poem)
         curr_similarity = evaluate_internal_similarity(split)
     print(f"Intra poem similarity: {curr_similarity}")
 
     lines = format_poem(split)
-
-    # for line in lines:
-    #     print(line)
-
     significant_nouns = find_significant_nouns(split)
-    # print(significant_nouns)
 
     return lines, significant_nouns
 

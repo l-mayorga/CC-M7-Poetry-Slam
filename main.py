@@ -1,4 +1,4 @@
-import texttoimage
+import modules.fork_texttoimage as fork_texttoimage
 from generate_ngrams import generate_poem
 from unsplash import generate_bg_image
 import os
@@ -18,12 +18,11 @@ def write_poem_txt(title, lines):
 def write_poem_png(title):
     poem = read_poem("generated_poems_txt/" + title + ".txt")
     bg_filename = "generated_poems_png/" + title + "_bg.png"
-    texttoimage.convert(poem, bg_filename)
+    fork_texttoimage.convert(poem, bg_filename)
 
 
 def main():
     lines, significant_nouns = generate_poem()
-    # print(lines, significant_nouns)
     title = f"{significant_nouns[0]}_{significant_nouns[1]}"
     print(f"title: {title}")
     generate_bg_image(significant_nouns, title)
