@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Usage: bash perform_poem.sh <poem_title>
+# Usage: bash perform_poem.sh <poem_title> [--move-bg]
 
 # Validate usage
 if [ -z "$1" ]; then
-    echo "Usage: $0 <poem_title>"
+    echo "Usage: $0 <poem_title> [--move-bg]"
     exit 1
 fi
 
