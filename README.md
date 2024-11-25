@@ -35,3 +35,9 @@ Kaggle [Poetry Foundation Poems Datasaet](https://www.kaggle.com/datasets/tgdivy
 [Text And Image – The Relationship Between Text And Image In Research](https://pressbooks.pub/academischevaardigheden/chapter/hoofdstuk-7-2-text-and-image-the-relationship-between-text-and-image-in-research/)
 
 - This study argues that neither words nor images alone are the most medium to convey information or to tell a story. Instead, it is best to combine both. In my system, the background images add to the effect of reading and listening to the poem.
+
+## Challenges
+
+I tackled the front-end and presentation part first, so the first challenge I encountered was working with the Unsplash API to source background images. I had never gone through the process of applying for an API key and using it in the code. I learned that it's best to store sensitive data like API keys in the environment instead of just having it in the code. The other challenge with the front end was working with PNGs. It was my first time using PIL to work with images and forking another repo to use to modified version of someone else's code.
+
+The next challenge was creating n-grams. I knew I wanted to create my own lightweight version instead of using another module's. I remembered the basic concept from the Data Structures lab, but I had a couple difficulties ironing out the fine detail.
